@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Clientes Sin Perseguir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Bodoni+Moda:ital,wght@1,600&display=swap">
+<style>
+  :root{
+    --bg:#F7F8FA;
+    --bg-soft:#FFFFFF;
+    --line:#DCE2EE;
+    --ink:#1F2F3C;
+    --ink-dim:#56627A;
+    --peri:#8FA7D2;
+    --peri-ink:#5E76B3;
+    --sel:#7D93C6;
+    --butter:#EEE5A4;
+    --butter-ink:#9C8A2E;
+    --btn:#5E76B3;
+    --btn-ink:#FFFFFF;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme:dark;
+      --bg:#16222C; --bg-soft:#1F2F3C; --line:#33465A; --ink:#F3F5FA; --ink-dim:#AEB8CC;
+      --peri:#8FA7D2; --peri-ink:#B3C3E6; --butter-ink:#EEE5A4; --btn:#EEE5A4; --btn-ink:#1F2F3C;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme:dark;
+    --bg:#16222C; --bg-soft:#1F2F3C; --line:#33465A; --ink:#F3F5FA; --ink-dim:#AEB8CC;
+    --peri:#8FA7D2; --peri-ink:#B3C3E6; --butter-ink:#EEE5A4; --btn:#EEE5A4; --btn-ink:#1F2F3C;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Hanken Grotesk',"Segoe UI",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{ font-family:'Hanken Grotesk',sans-serif; font-weight:700; text-wrap:balance; margin:0; letter-spacing:-.02em; }
+  h2{ font-weight:300; }
+  h2 b{ font-weight:700; }
+  .wrap{ max-width:540px; margin:0 auto; padding-inline:22px; }
+
+  .screen{ padding-block:56px 64px; border-top:1px solid var(--line); }
+
+  .eyebrow{
+    font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--peri-ink);
+    display:flex; align-items:center; gap:8px; margin-bottom:16px;
+  }
+  .star{ display:inline-block; width:12px; height:12px; color:var(--butter-ink); flex:none; }
+  .star svg{ display:block; width:100%; height:100% }
+
+  .logo{ font-weight:500; font-size:24px; letter-spacing:-.035em; line-height:1; display:inline-flex; align-items:flex-start; }
+  .logo .it{ font-family:'Bodoni Moda',Georgia,serif; font-style:italic; font-weight:600; letter-spacing:0; margin-right:-.02em; }
+  .logo .star{ width:9px; height:9px; margin-left:3px; color:var(--butter); }
+
+  .lede{ font-size:16.5px; line-height:1.65; margin-top:16px; color:var(--ink-dim); max-width:46ch; }
+
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:10px;
+    border-radius:999px; padding:16px 22px; font-family:'Hanken Grotesk',sans-serif;
+    font-weight:700; font-size:16px; text-decoration:none; border:none; cursor:pointer;
+    transition:opacity .15s ease; width:100%;
+  }
+  .btn:active{ opacity:.8; }
+  .btn:focus-visible{ outline:2px solid var(--peri); outline-offset:3px; }
+  .btn svg{ width:19px; height:19px; flex:none; }
+  .btn-primary{ background:var(--btn); color:var(--btn-ink); }
+  .btn-row{ margin-top:26px; }
+
+  /* hero en papel azul */
+  .hero{
+    background:#8FA7D2 url(img/papel-azul.jpg) center/cover;
+    color:#fff; border-top:none; position:relative; overflow:hidden;
+    padding-top:calc(52px + env(safe-area-inset-top,0px)); padding-bottom:60px;
+  }
+  .hero .inner{ max-width:540px; margin:0 auto; padding-inline:22px; position:relative; }
+  .hero .kicker{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .hero .kicker .eyebrow{ color:#fff; margin:0; }
+  .hero .kicker .eyebrow .star{ color:var(--butter); }
+  .hero .logo{ color:#fff; }
+  .hero h1{ font-size:clamp(40px,11vw,58px); margin-top:34px; line-height:1.04; font-weight:300; letter-spacing:-.03em; }
+  .sel{
+    display:inline-block; position:relative; background:var(--sel); color:#fff; font-weight:700;
+    padding:0 .16em .05em; margin-top:.1em;
+  }
+  .sel::before,.sel::after{ content:""; position:absolute; width:11px; height:11px; border-radius:50%; background:var(--sel); border:2px solid #fff; }
+  .sel::before{ left:-7px; top:-7px } .sel::after{ right:-7px; bottom:-7px }
+  .hero .lede{ color:#fff; opacity:.95; }
+  .hero .btn-primary{ background:#fff; color:#5E76B3; }
+  .hero-star{ position:absolute; color:var(--butter); }
+  .hero-star svg{ display:block; width:100%; height:100% }
+
+  .plist{ margin-top:28px; display:flex; flex-direction:column; }
+  .plist .row{ padding:18px 0; border-top:1px solid var(--line); }
+  .plist .row:last-child{ border-bottom:1px solid var(--line); }
+  .plist .row b{ font-weight:700; color:var(--ink); }
+  .plist .row p{ margin:4px 0 0; font-size:15px; line-height:1.55; color:var(--ink-dim); }
+
+  .mission .row{ display:flex; gap:14px; padding:16px 0; border-top:1px solid var(--line); align-items:baseline; }
+  .mission .row:last-child{ border-bottom:1px solid var(--line); }
+  .mission .num{ font-size:13px; font-weight:700; color:var(--peri-ink); flex:none; width:22px; font-variant-numeric:tabular-nums; }
+  .mission .txt{ font-size:15.5px; line-height:1.55; }
+  .tag-future{ display:inline-block; margin-left:6px; font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-dim); border:1px solid var(--line); border-radius:999px; padding:2px 8px; }
+
+  .results .row{ display:flex; gap:12px; padding:16px 0; border-top:1px solid var(--line); }
+  .results .row:last-child{ border-bottom:1px solid var(--line); }
+  .results .mark{ margin-top:4px; }
+  .results .txt{ font-size:15.5px; line-height:1.55; color:var(--ink-dim); }
+  .results b{ color:var(--ink); font-weight:700; }
+
+  .compare{ margin-top:28px; display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  .compare .col{ display:flex; flex-direction:column; gap:12px; }
+  .compare .colhead{ font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding-bottom:10px; border-bottom:1px solid var(--line); }
+  .compare .col.typ .colhead{ color:var(--ink-dim); }
+  .compare .col.us .colhead{ color:var(--peri-ink); border-bottom-color:var(--peri); }
+  .compare .row2{ font-size:14px; line-height:1.4; color:var(--ink-dim); }
+  .compare .col.us .row2{ color:var(--ink); font-weight:600; }
+
+  .cycle{ margin-top:30px; display:flex; flex-direction:column; }
+  .cycle .node{ display:flex; align-items:center; gap:14px; padding:14px 0; border-top:1px solid var(--line); font-weight:700; font-size:16px; }
+  .cycle .node:last-child{ border-bottom:1px solid var(--line); }
+  .cycle .node .n{ font-size:12px; font-weight:700; color:var(--peri-ink); width:22px; flex:none; font-variant-numeric:tabular-nums; }
+  .cycle .node .verb{ margin-left:auto; font-size:11px; font-weight:600; color:var(--peri-ink); text-transform:uppercase; letter-spacing:.1em; }
+  .cycle-note{ margin-top:18px; font-size:14.5px; line-height:1.6; color:var(--ink-dim); }
+
+  .motor{ margin-top:30px; display:flex; flex-direction:column; }
+  .motor-row{ padding:24px 0; border-top:1px solid var(--line); }
+  .motor-row:last-child{ border-bottom:1px solid var(--line); }
+  .motor-row .idx{ font-size:11px; color:var(--peri-ink); font-weight:700; letter-spacing:.1em; text-transform:uppercase; }
+  .motor-row h3{ font-size:23px; margin-top:6px; }
+  .motor-row .hookline{ margin-top:8px; font-size:14.5px; color:var(--ink-dim); }
+  .motor-row ul{ margin:14px 0 0; padding-left:18px; }
+  .motor-row li{ font-size:14.5px; line-height:1.55; margin-bottom:6px; color:var(--ink-dim); }
+  .motor-row li::marker{ color:var(--peri); }
+
+  .rules{ margin-top:28px; display:flex; flex-direction:column; }
+  .rules .row{ padding:18px 0; border-top:1px solid var(--line); font-size:15.5px; line-height:1.6; color:var(--ink-dim); }
+  .rules .row:last-child{ border-bottom:1px solid var(--line); }
+  .rules b{ color:var(--peri-ink); font-weight:700; }
+
+  .plans{ margin-top:28px; display:grid; gap:16px; }
+  .plan{ padding:26px 22px; border:1px solid var(--line); border-radius:20px; background:var(--bg-soft); }
+  .plan.featured{ border-color:var(--peri); box-shadow:0 0 0 1px var(--peri); }
+  .plan .kicker{ font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-dim); }
+  .plan h3{ font-size:27px; margin-top:6px; }
+  .plan .sub{ font-size:14.5px; color:var(--ink-dim); margin-top:4px; }
+  .plan .price{ font-weight:800; font-size:29px; color:var(--peri-ink); margin-top:14px; letter-spacing:-.02em; }
+  .plan .price small{ font-size:13px; font-weight:500; color:var(--ink-dim); letter-spacing:0; }
+  .plan ul{ margin:16px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px; }
+  .plan li{ font-size:14.5px; line-height:1.5; display:flex; gap:9px; color:var(--ink-dim); }
+  .plan li .star{ margin-top:4px; }
+  .plan .split{ font-size:13px; color:var(--ink-dim); margin-top:14px; padding-top:12px; border-top:1px dashed var(--line); }
+  .foot-note{ margin-top:18px; font-size:12.5px; color:var(--ink-dim); line-height:1.5; }
+  .addon{ margin-top:14px; padding-top:14px; border-top:1px dashed var(--line); font-size:13.5px; line-height:1.55; color:var(--ink-dim); }
+  .addon b{ color:var(--ink); }
+
+  .closing{ text-align:center; }
+  .closing h2{ font-size:clamp(28px,7vw,36px); }
+  .closing .lede{ margin-inline:auto; }
+
+  .appbar{
+    position:fixed; left:0; right:0; bottom:0; z-index:40;
+    background:var(--bg); border-top:1px solid var(--line);
+    padding:12px 22px calc(12px + env(safe-area-inset-bottom,0px));
+  }
+  .appbar .btn{ max-width:540px; margin:0 auto; display:flex; }
+
+  footer.credits{ text-align:center; padding-block:24px 110px; font-size:12px; color:var(--ink-dim); }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none!important } }
+</style>
+
+<header class="screen hero">
+  <span class="hero-star" style="width:26px;height:26px;top:96px;right:30px"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>
+  <span class="hero-star" style="width:15px;height:15px;top:140px;right:74px"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>
+  <div class="inner">
+    <div class="kicker">
+      <span class="logo" aria-label="merkha"><span class="it">m</span>erkha<span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span></span>
+      <span class="eyebrow">sistema de contenido</span>
+    </div>
+    <h1>Clientes Sin <span class="sel">Perseguir</span></h1>
+    <p class="lede">Construimos un sistema de contenido que atrae al cliente correcto, aleja al que no puede pagar y prepara la venta antes de la primera conversación.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="https://wa.me/524461447931?text=Hola%2C%20ya%20lo%20le%C3%AD%20y%20s%C3%AD%20quiero%20trabajar%20contigo%20%F0%9F%99%8C" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10 9 9.4 7.6 9.2 7c-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+        Escríbeme por WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="screen wrap">
+  <div class="eyebrow"><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>El cambio de mentalidad</div>
+  <h2 style="font-size:clamp(24px,6vw,31px);">Esto queda claro <b>antes de escribir una sola pieza</b></h2>
+  <div class="plist">
+    <div class="row"><b>El contenido es un activo del negocio.</b><p>Genera ingresos incluso cuando el dueño no está en la conversación, como el mejor vendedor del equipo.</p></div>
+    <div class="row"><b>Comunicación simplificada.</b><p>Entre más claro se explica un negocio, menos esfuerzo cuesta venderlo.</p></div>
+    <div class="row"><b>No se persigue alcance.</b><p>El contenido magnético factura con audiencias pequeñas: importa a quién le llega, no a cuántos.</p></div>
+    <div class="row"><b>El contenido invita y pre-vende.</b><p>Nunca convence, nunca presiona.</p></div>
+  </div>
+</section>
+
+<section class="screen wrap">
+  <div class="eyebrow"><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>La misión</div>
+  <h2 style="font-size:clamp(24px,6vw,31px);">Esto existe para <b>tres cosas</b></h2>
+  <div class="mission">
+    <div class="row"><span class="num">01</span><span class="txt">Ayudar al cliente y a su negocio a llegar a su mejor versión. No solo publicar por publicar.</span></div>
+    <div class="row"><span class="num">02</span><span class="txt">Guiar exactamente qué hacer y cómo hacerlo. No se entrega un documento y se desaparece.</span></div>
+    <div class="row"><span class="num">03</span><span class="txt">Construir una comunidad alrededor de este sistema.<span class="tag-future">Visión a futuro</span></span></div>
+  </div>
+</section>
+
+<section class="screen wrap">
+  <div class="eyebrow"><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>El resultado</div>
+  <h2 style="font-size:clamp(24px,6vw,31px);">Así opera tu negocio cuando <b>el sistema ya está corriendo</b></h2>
+  <div class="results">
+    <div class="row"><span class="mark star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="txt"><b>Te escriben ya convencidos.</b> Preguntan precio y disponibilidad, no qué haces.</span></div>
+    <div class="row"><span class="mark star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="txt"><b>Dejas de competir por precio.</b> El contenido ya hizo la venta antes de la conversación.</span></div>
+    <div class="row"><span class="mark star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="txt"><b>El equipo se mantiene mínimo.</b> Hace el trabajo de un vendedor de tiempo completo.</span></div>
+    <div class="row"><span class="mark star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="txt"><b>Cada cierre alimenta el siguiente.</b> El caso de éxito de hoy es el gancho de mañana.</span></div>
+    <div class="row"><span class="mark star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span><span class="txt"><b>Dejas de perseguir.</b> Quien no puede pagar se filtra solo, antes de escribirte.</span></div>
+  </div>
+</section>
+
+<section class="screen wrap">
+  <div class="eyebrow"><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Posicionamiento</div>
+  <h2 style="font-size:clamp(24px,6vw,31px);">Esto <b>no es manejo de redes</b></h2>
+  <p class="lede">El manejo de redes típico llena un calendario y espera a que alguien escriba. Clientes Sin Perseguir convierte cada pieza en un paso de venta, antes de que exista una llamada.</p>
+  <div class="compare">
+    <div class="col typ">
+      <div class="colhead">Lo típico</div>
+      <div class="row2">Publica y espera</div>
+      <div class="row2">Compite con descuentos</div>
+      <div class="row2">Copia lo que está en tendencia</div>
+      <div class="row2">Le habla a cualquiera</div>
+    </div>
+    <div class="col us">
+      <div class="colhead">Sin perseguir</div>
+      <div class="row2">Pre-vende antes de la llamada</div>
+      <div class="row2">Posiciona y filtra, no regatea</div>
+      <div class="row2">Nace de tu historia real</div>
+      <div class="row2">Invita solo a quien puede pagar</div>
+    </div>
+  </div>
+</section>
+
+<section class="screen wrap">
+  <div class="eyebrow"><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>El mecanismo</div>
+  <h2 style="font-size:clamp(24px,6vw,31px);">El ciclo que <b>se alimenta solo</b></h2>
+  <p class="lede">Cada cliente que cierra no es el final. Es materia prima para el siguiente extraño que va a llegar.</p>
+  <div class="cycle">
+    <div class="node"><span class="n">01</span>Extraño<span class="verb">atraemos</span></div>
+    <div class="node"><span class="n">02</span>Seguidor<span class="verb">nutrimos</span></div>
+    <div class="node"><span class="n">03</span>Levanta la mano<span class="verb">filtramos</span></div>
+    <div class="node"><span class="n">04</span>Cliente<span class="verb">derivamos</span></div>
+    <div class="node"><span class="n">05</span>Caso de éxito<span class="verb">alimenta</span></div>
+  </div>
+  <p class="cycle-note">El caso de éxito vuelve a nutrir el ciclo desde el inicio.</p>
+</section>
+
+<section class="screen wrap">
+  <div class="eyebrow"><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>El motor</div>
+  <h2 style="font-size:clamp(24px,6vw,31px);"><b>4 etapas</b> y los 9 tipos de contenido</h2>
+  <div class="motor">
+    <div class="motor-row">
+      <div class="idx">01 · Conexión · Atraemos</div>
+      <h3>Quién eres</h3>
+      <div class="hookline">Es lo que hace que un extraño se detenga a mirar.</div>
+      <ul>
+        <li>Quién eres: la persona o la empresa detrás del negocio</li>
+        <li>Cicatrices y fracasos que generan conexión profunda</li>
+        <li>El estándar de vida que refleja tus estándares de trabajo</li>
+      </ul>
+    </div>
+    <div class="motor-row">
+      <div class="idx">02 · Educación · Nutrimos</div>
+      <h3>Por qué confiar</h3>
+      <div class="hookline">El seguidor empieza a entender por qué deberías cobrar lo que cobras.</div>
+      <ul>
+        <li>La obsesión por cómo cuidas a tu cliente (backstage del proceso)</li>
+        <li>Cómo solucionas un problema</li>
+        <li>Qué giro le diste a una situación difícil</li>
+        <li>Tu postura con la industria</li>
+        <li>Malas prácticas del sector, denunciadas sin filtro</li>
+      </ul>
+    </div>
+    <div class="motor-row">
+      <div class="idx">03 · Conversión · Filtramos</div>
+      <h3>Es esto para mí</h3>
+      <div class="hookline">Disuelve miedos y objeciones antes de que se digan en voz alta.</div>
+      <ul>
+        <li>Con quién sí trabajas y con quién no</li>
+      </ul>
+    </div>
+    <div class="motor-row">
+      <div class="idx">04 · Transformación · Derivamos</div>
+      <h3>Sí funciona</h3>
+      <div class="hookline">Ese caso de éxito es el contenido que atrae al siguiente extraño.</div>
+      <ul>
+        <li>Caso de éxito cerrado, con resultado real</li>
+        <li>El backstage de cuidado ya convertido en historia con final</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="screen wrap">
+  <div class="eyebrow"><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Diferenciador</div>
+  <h2 style="font-size:clamp(24px,6vw,31px);">Las reglas que <b>no se negocian</b></h2>
+  <div class="rules">
+    <div class="row"><b>No copiamos lo que ya existe en internet.</b> Si tu contenido se parece al de cualquier otro negocio del sector, no está haciendo su trabajo.</div>
+    <div class="row"><b>Hablamos de tu historia real,</b> no de una versión editada para quedar bien.</div>
+    <div class="row"><b>Tomamos postura</b> sobre las malas prácticas del sector, aunque incomode.</div>
+    <div class="row"><b>Decimos con quién sí trabajamos y con quién no.</b> Eso también es contenido.</div>
+    <div class="row"><b>Invitamos a la persona correcta</b> a levantar la mano. No perseguimos a la que no.</div>
+  </div>
+</section>
+
+<section class="screen wrap">
+  <div class="eyebrow"><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Modalidades</div>
+  <h2 style="font-size:clamp(24px,6vw,31px);">Dos formas de operar <b>el mismo sistema</b></h2>
+  <p class="lede">El motor no cambia. Cambia quién ejecuta cada etapa.</p>
+  <div class="plans">
+    <div class="plan">
+      <div class="kicker">Done with you</div>
+      <h3>Guiado</h3>
+      <div class="sub">Tú publicas, nosotros construimos el sistema.</div>
+      <div class="price">desde $10,500<small> MXN / mes</small></div>
+      <ul>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Estrategia de contenido y calendario</li>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Guion por pieza</li>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Guía de qué y cómo grabar</li>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Edición de video y carruseles</li>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Protocolo de atención y respuesta de mensajes</li>
+      </ul>
+      <div class="split">Publicas y respondes tú. Te acompañamos con seguimiento.</div>
+    </div>
+    <div class="plan featured">
+      <div class="kicker">Done for you</div>
+      <h3>Gestionado</h3>
+      <div class="sub">Nosotros operamos el sistema completo.</div>
+      <div class="price">desde $15,000<small> MXN / mes</small></div>
+      <ul>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Todo lo de Guiado</li>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Publicación del contenido</li>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Respuesta de todos los mensajes</li>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Conversación con nuevos seguidores para detectar oportunidad</li>
+        <li><span class="star"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg></span>Calificación y derivación del lead a cierre</li>
+      </ul>
+      <div class="split">Tú solo cierras. Nosotros operamos todo lo demás.</div>
+    </div>
+  </div>
+  <div class="foot-note">* Precio base. El monto final se ajusta según el diagnóstico del negocio: madurez, volumen de contenido y complejidad de pauta.</div>
+  <div class="addon"><b>Pauta publicitaria.</b> Cuando el diagnóstico del negocio lo pide, se administra aparte: presupuesto de pauta del cliente + gestión de Merkha, cotizada según el caso.</div>
+</section>
+
+<section class="screen wrap closing">
+  <h2>¿Listo para dejar de <b>perseguir clientes</b>?</h2>
+  <p class="lede">Escríbeme y arrancamos con el diagnóstico de tu negocio.</p>
+  <div class="btn-row">
+    <a class="btn btn-primary" href="https://wa.me/524461447931?text=Hola%2C%20ya%20lo%20le%C3%AD%20y%20s%C3%AD%20quiero%20trabajar%20contigo%20%F0%9F%99%8C" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10 9 9.4 7.6 9.2 7c-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+      Sí, quiero trabajar contigo
+    </a>
+  </div>
+  <div style="margin-top:28px;color:var(--ink-dim)"><span class="logo" style="font-size:20px;color:var(--peri-ink)"><span class="it">m</span>erkha</span><div style="font-size:13px;margin-top:6px">@merkhamedia</div></div>
+</section>
+
+<footer class="credits">Merkha · Clientes Sin Perseguir</footer>
+
+<div class="appbar">
+  <a class="btn btn-primary" href="https://wa.me/524461447931?text=Hola%2C%20ya%20lo%20le%C3%AD%20y%20s%C3%AD%20quiero%20trabajar%20contigo%20%F0%9F%99%8C" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.1.2-.3.3-.4.1-.2 0-.4 0-.5C10 9 9.4 7.6 9.2 7c-.2-.5-.4-.5-.6-.5h-.5c-.2 0-.5.1-.7.3-.2.3-1 1-1 2.3 0 1.4 1 2.7 1.1 2.9.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.7-.7 1.9-1.4.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3zM12 2C6.5 2 2 6.5 2 12c0 1.9.5 3.6 1.4 5.1L2 22l5.1-1.3c1.4.8 3.1 1.2 4.9 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/></svg>
+    Escríbeme por WhatsApp
+  </a>
+</div>
+
+</html>
